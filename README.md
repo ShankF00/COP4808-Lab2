@@ -10,7 +10,7 @@ Time spent: **2** hours spent in total
 
 The following **required** functionality is completed:
 
-- [x} **The title of the card set and some information about it, such as a short description and the total number of cards are displayed**
+- [x] **The title of the card set and some information about it, such as a short description and the total number of cards are displayed**
 - [x] **A single card at a time is displayed, only showing one of the components of the information pair**
 - [x] **A list of card pairs is created**
 - [x] **Clicking on the card shows the corresponding component of the information pair**
