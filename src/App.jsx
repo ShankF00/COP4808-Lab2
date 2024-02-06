@@ -81,10 +81,28 @@ const App = () => {
 
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [userAnswer, setUserAnswer] = useState('');
+  const [isCorrect, setIsCorrect] = useState(null);
+
+  const checkAnswer = () => {
+    const correctAnswer = cardPairs[currentCardIndex].answer;
+    const correct = userAnswer.toLowerCase() === correctAnswer.toLowerCase();
+    setIsCorrect(correct);
+  };
+
+  const handleInputChange = (e) => {
+    setUserAnswer(e.target.value);
+    setIsCorrect(null); // Reset correctness status when the user types a new answer
+  };
+
+  const prevCard = () => {
+    setShowAnswer(false); // Set showAnswer to false before moving to the previous card
+    setCurrentCardIndex((prevIndex) => (prevIndex - 1 + cardPairs.length) % cardPairs.length);
+  };
 
   const nextCard = () => {
     setShowAnswer(false); // Set showAnswer to false before moving to the next card
-    setCurrentCardIndex(Math.floor(Math.random() * cardPairs.length));
+    setCurrentCardIndex((prevIndex) => (prevIndex + 1) % cardPairs.length);
   };
 
   return (
@@ -92,14 +110,29 @@ const App = () => {
       <div>
         <h1>Katakana flashcards</h1>
         <h2>Katakana is one of the 3 kinds of characters you can encounter when reading Japanese.
-          it is used as loanwords from other languages or to put emphasis on a type of word.
+          These character combined can used as loanwords from other languages or to put emphasis on a type of word.
           There are 46 basic characters, 71 if you include the "muddy" versions of some characters (i.e. カ (ka) and ガ (ga)).
-          This set of cards does NOT include conjogate characters like キョ(kyo), or カッタ (katta)
+          This set of cards does NOT include conjugate characters like キョ(kyo), or カッタ (katta)
           since these flashcards would be too long.
         </h2>
       </div>
+
+      
       <CardList cards={[cardPairs[currentCardIndex]]} showAnswer={showAnswer} setShowAnswer={setShowAnswer} />
+      <input type="text" value={userAnswer} onChange={handleInputChange} />
+      <button onClick={checkAnswer}>Check Answer</button>
+
+      
+      
+      <button onClick={prevCard}>Previous Card</button>
       <button onClick={nextCard}>Next Card</button>
+      <div style={{ height: '20px' }}>
+        {isCorrect !== null && (
+          <div>{isCorrect ? 'Correct!' : 'Incorrect. Try again.'}</div>
+        )}
+      </div>
+      
+      
     </div>
   );
 };

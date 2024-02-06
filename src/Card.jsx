@@ -1,5 +1,6 @@
 // Card.jsx
 import React, { useState, useEffect } from 'react';
+import './App.css';
 
 const Card = ({ card, showAnswer, setShowAnswer }) => {
   const [localShowAnswer, setLocalShowAnswer] = useState(false);
